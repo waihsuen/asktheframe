@@ -1,0 +1,11 @@
+version: "2.1"
+
+services:
+  balena-eink:
+    build: .
+    privileged: true
+    restart: always
+    devices:
+      - "/dev/gpiomem"
+      - "/dev/spidev0.0"
+      - "/dev/spidev0.1"

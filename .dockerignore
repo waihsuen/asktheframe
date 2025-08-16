@@ -1,0 +1,5 @@
+# Don't send node_modules the daemon - we want the build server to install these.
+node_modules
+npm-debug.log
+.git
+.gitignore

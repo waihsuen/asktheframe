@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "black-formatter.args": ["--line-length", "200"],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
+}
