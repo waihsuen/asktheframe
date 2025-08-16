@@ -1,0 +1,21 @@
+# Don't send node_modules the daemon - we want the build server to install these.
+node_modules
+npm-debug.log
+.git
+.gitignore
+
+# Python cache and virtualenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+
+# Editor / OS junk
+*.swp
+*.swo
+.DS_Store
+
+# Ignore local env and logs
+.env
+*.log

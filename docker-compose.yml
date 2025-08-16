@@ -1,0 +1,25 @@
+version: "2.1"
+
+services:
+  # wifi-connect:
+  #   build: ./wifi-connect
+  #   network_mode: "host"
+  #   restart: always
+  #   labels:
+  #     io.balena.features.dbus: "1"
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
+  #     PORTAL_LISTENING_PORT: "80"
+  #     PORTAL_INTERFACE: "wlan0"
+  #     ACTIVITY_TIMEOUT: "900"
+  #     CHECK_CONN_FREQ: "120"
+  balena-eink:
+    build: .
+    privileged: true
+    restart: always
+    devices:
+      - "/dev/gpiomem"
+      - "/dev/spidev0.0"
+      - "/dev/spidev0.1"
