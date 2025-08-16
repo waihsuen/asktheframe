@@ -200,7 +200,7 @@ def render_bus_screen(epd, stops_payload: List[StopPayload]) -> Image.Image:
     draw = ImageDraw.Draw(img)
 
     # background
-    draw.rectangle((0, 0, epd.width, epd.height), fill=255)
+    # draw.rectangle((0, 0, epd.width, epd.height), fill=255)
 
     col_w = (epd.width - 2 * COL_MARGIN - 2 * COL_GAP) // 3
     for i in range(3):
