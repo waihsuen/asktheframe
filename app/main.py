@@ -11,7 +11,7 @@ load_dotenv()
 ASIA_SG = ZoneInfo("Asia/Singapore")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-LIB_DIR = os.path.join(BASE_DIR, "libraries")
+LIB_DIR = os.path.join(BASE_DIR, "libraries", "RaspberryPi_JetsonNano", "python", "lib," "waveshare_epd")
 if os.path.exists(LIB_DIR):
     sys.path.append(LIB_DIR)
 
