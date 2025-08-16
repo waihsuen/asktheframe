@@ -11,12 +11,12 @@ load_dotenv()
 ASIA_SG = ZoneInfo("Asia/Singapore")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-LIB_DIR = os.path.join(BASE_DIR, "libraries", "RaspberryPi_JetsonNano", "python", "lib," "waveshare_epd")
+LIB_DIR = os.path.join(BASE_DIR, "libraries")
 if os.path.exists(LIB_DIR):
     sys.path.append(LIB_DIR)
 
 try:
-    from waveshare_epd import epd7in5_V2
+    from waveshare_epd import epd7in5_V2  # type: ignore
 except ImportError as e:
     print(f"Could not import waveshare_epd: {e}")
     raise
