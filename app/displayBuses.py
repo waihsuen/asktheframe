@@ -17,10 +17,10 @@ WIDTH, HEIGHT = 800, 480
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 PIC_DIR = os.path.join(BASE_DIR, "images")
-LIB_DIR = os.path.join(BASE_DIR, "libraries")
+FONT_DIR = os.path.join(BASE_DIR, "libraries", "fonts")
 
-if os.path.exists(LIB_DIR):
-    sys.path.append(LIB_DIR)
+if os.path.exists(FONT_DIR):
+    sys.path.append(FONT_DIR)
 
 # Layout metrics (override via ENV if you want to tweak without code changes)
 PILL_H = int(os.getenv("PILL_H", "48"))
@@ -143,7 +143,7 @@ def render_stop_column(draw: ImageDraw.ImageDraw, stop_name: str, routes: List[T
     pill_w = min(col_w - 12, PILL_MAX_W)
     pill_x = x0 + (col_w - pill_w) // 2
     pill_y = top_y
-    title_font = _load_font(LIB_DIR, 22)
+    title_font = _load_font(FONT_DIR, 22)
 
     # draw pill
     draw.rounded_rectangle((pill_x, pill_y, pill_x + pill_w, pill_y + pill_h), radius=12, fill=0)
@@ -155,9 +155,9 @@ def render_stop_column(draw: ImageDraw.ImageDraw, stop_name: str, routes: List[T
 
     # route rows
     y = top_y + pill_h + 48
-    badge_font = _load_font_bold(LIB_DIR, 24)
-    eta_big = _load_font_bold(LIB_DIR, 32)
-    eta_small = _load_font_mono(LIB_DIR, 24)
+    badge_font = _load_font_bold(FONT_DIR, 24)
+    eta_big = _load_font_bold(FONT_DIR, 32)
+    eta_small = _load_font_mono(FONT_DIR, 24)
 
     for svc, etas in routes[:2]:  # only draw up to 2 actual services
         # circular route badge

@@ -17,10 +17,6 @@ IMAGE_REFRESH_SECONDS = float(os.getenv("IMAGE_REFRESH_SECONDS", "15"))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 PIC_DIR = os.path.join(BASE_DIR, "images")
 FRAMES_DIR = os.path.join(BASE_DIR, "images", "frames", FRAME_SUB_PATH)
-LIB_DIR = os.path.join(BASE_DIR, "libraries")
-
-if os.path.exists(LIB_DIR):
-    sys.path.append(LIB_DIR)
 
 
 # ---------------- Image utils ----------------

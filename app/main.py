@@ -27,7 +27,6 @@ REFRESH_SECONDS = int(os.getenv("LOOP_REFRESH_SECONDS", "30"))
 SLEEP_START_H = int(os.getenv("SLEEP_START_H", "0"))
 SLEEP_END_H = int(os.getenv("SLEEP_END_H", "8"))
 IMAGES_PER_CYCLE = int(os.getenv("IMAGES_PER_CYCLE", "2"))
-ALTERNATE_MODES = os.getenv("ALTERNATE_MODES", "0") not in ("0", "false", "False")
 NIGHT_LOOP_SECONDS = int(os.getenv("NIGHT_LOOP_SECONDS", "1800"))
 
 logging.basicConfig(
@@ -112,29 +111,16 @@ def main():
                 continue
 
             # ----- Daytime updates -----
-            try:
-                if ALTERNATE_MODES:
-                    # Alternate images ↔ buses each loop (one refresh per loop)
-                    if (loop_i % 2) == 1:
-                        logging.info("=== Image Display ===")
-                        displayImages.show_image_loop(epd)
-                    else:
-                        logging.info("=== Bus Display ===")
-                        displayBuses.show_bus_arrivals(epd)
-                else:
-                    # Show some images, then buses (reduces refreshes vs both every loop)
-                    logging.info("=== Image Display x%d ===", IMAGES_PER_CYCLE)
-                    for _ in range(max(1, IMAGES_PER_CYCLE)):
-                        if _shutdown:
-                            break
-                        displayImages.show_image_loop(epd)
-                        time.sleep(0.1)  # tiny spacing, panel already busy
+            # Show some images, then buses (reduces refreshes vs both every loop)
+            logging.info("=== Image Display x%d ===", IMAGES_PER_CYCLE)
+            for _ in range(max(1, IMAGES_PER_CYCLE)):
+                if _shutdown:
+                    break
+                displayImages.show_image_loop(epd)
+                time.sleep(0.1)  # tiny spacing, panel already busy
 
-                    logging.info("=== Bus Display ===")
-                    displayBuses.show_bus_arrivals(epd)
-
-            except Exception:
-                logging.exception("Update cycle failed (continuing)")
+            logging.info("=== Bus Display ===")
+            displayBuses.show_bus_arrivals(epd)
 
             # ----- Power saving between loops -----
             try:
