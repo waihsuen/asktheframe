@@ -14,7 +14,7 @@ is_online() {
   fi
   # Fallbacks: default route or quick HTTP reachability check
   ip route | grep -q '^default ' && return 0
-  curl -fsS --max-time=3 -o /dev/null http://connectivitycheck.gstatic.com/generate_204 && return 0
+  curl -fsS -m 10 -o /dev/null http://connectivitycheck.gstatic.com/generate_204 && return 0
   return 1
 }
 
