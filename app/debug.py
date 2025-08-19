@@ -8,12 +8,8 @@ from types import SimpleNamespace
 load_dotenv()
 
 # Setting up directories
-picdir = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "pic"
-)
-libdir = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "lib"
-)
+picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "pic")
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "lib")
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
@@ -27,15 +23,13 @@ from PIL import Image, ImageDraw, ImageFont
 import traceback
 import logging
 
+API_URL = int(os.getenv("API_URL", ""))
+
 logging.basicConfig(level=logging.DEBUG)
 
 
 def get_bus_arrival(api_key, bus_stop_code):
-    # url = (
-    #     "https://datamall2.mytransport.sg/ltaodataservice/v3/BusArrival?BusStopCode="
-    #     + bus_stop_code
-    # )
-    url = "https://api.asktheframe.com/busarrival?BusStopCode=" + bus_stop_code
+    url = f"{API_URL}/busarrival?BusStopCode={bus_stop_code}"
     headers = {"AccountKey": api_key, "accept": "application/json"}
 
     response = requests.get(url, headers=headers)
@@ -53,17 +47,13 @@ def get_bus_arrival(api_key, bus_stop_code):
                     eta = service[bus]["EstimatedArrival"]
                     if eta:
                         eta_time = datetime.strptime(eta, "%Y-%m-%dT%H:%M:%S%z")
-                        time_diff = (
-                            eta_time - datetime.now(eta_time.tzinfo)
-                        ).total_seconds() / 60
+                        time_diff = (eta_time - datetime.now(eta_time.tzinfo)).total_seconds() / 60
                         arrival_times.append(round(time_diff))
             if arrival_times:
                 bus_info.append((service_no, arrival_times))
         return bus_info
     else:
-        logging.error(
-            "Error: Unable to fetch data. Status code: " + str(response.status_code)
-        )
+        logging.error("Error: Unable to fetch data. Status code: " + str(response.status_code))
         return []
 
 
@@ -86,9 +76,7 @@ def display_bus_arrivals_simulated(epd, draw, bus_info, Himage):
         first_arrival = bus_info[0][1][0]
         first_text = "Arriving" if first_arrival < 1 else f"{first_arrival}"
         first_font_size = 86 if first_arrival < 1 else 140
-        first_font = ImageFont.truetype(
-            os.path.join(libdir, "OpenSans-Bold.ttf"), first_font_size
-        )
+        first_font = ImageFont.truetype(os.path.join(libdir, "OpenSans-Bold.ttf"), first_font_size)
         first_bbox = draw.textbbox((0, 0), first_text, font=first_font)
         draw.text(((800 - first_bbox[2]) / 2, 160), first_text, font=first_font, fill=0)
 

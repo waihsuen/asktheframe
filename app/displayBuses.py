@@ -40,6 +40,7 @@ L2_NUDGE_Y = int(os.getenv("L2_NUDGE_Y", "36"))
 L3_NUDGE_Y = int(os.getenv("L3_NUDGE_Y", "64"))
 ROW_ADVANCE = int(os.getenv("ROW_ADVANCE", "140"))
 TOP_Y = int(os.getenv("TOP_Y", "64"))
+API_URL = int(os.getenv("API_URL", ""))
 
 
 # ---------- font helpers (cached) ----------
@@ -231,7 +232,7 @@ def get_bus_arrival(bus_stop_code: str) -> List[Tuple[str, List[int]]]:
         logging.error("Missing API_KEY")
         return []
 
-    url = f"https://api.asktheframe.com/busarrival?BusStopCode={bus_stop_code}"
+    url = f"{API_URL}/busarrival?BusStopCode={bus_stop_code}"
     headers = {"AccountKey": api_key, "accept": "application/json"}
 
     try:
