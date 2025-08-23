@@ -40,7 +40,7 @@ L2_NUDGE_Y = int(os.getenv("L2_NUDGE_Y", "36"))
 L3_NUDGE_Y = int(os.getenv("L3_NUDGE_Y", "64"))
 ROW_ADVANCE = int(os.getenv("ROW_ADVANCE", "140"))
 TOP_Y = int(os.getenv("TOP_Y", "64"))
-API_URL = int(os.getenv("API_URL", ""))
+API_URL = os.getenv("API_URL", "")
 
 
 # ---------- font helpers (cached) ----------
