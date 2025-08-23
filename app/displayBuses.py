@@ -233,7 +233,7 @@ def get_bus_arrival(bus_stop_code: str) -> List[Tuple[str, List[int]]]:
         return []
 
     url = f"{API_URL}/busarrival?BusStopCode={bus_stop_code}"
-    headers = {"AccountKey": api_key, "accept": "application/json"}
+    headers = {"x-api-key": api_key, "accept": "application/json"}
 
     try:
         r = _session.get(url, headers=headers, timeout=8)
