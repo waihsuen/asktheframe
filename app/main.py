@@ -1,14 +1,21 @@
 # main.py
-import os, sys, time, signal, logging
+import logging
+import os
+import signal
+import sys
+import time
 from datetime import datetime
-from zoneinfo import ZoneInfo
-from dotenv import load_dotenv
 from typing import Any
+from zoneinfo import ZoneInfo
+
+from dotenv import load_dotenv
+
+# Load .env as early as possible so downstream imports see env vars
+load_dotenv()
 
 import displayBuses
 import displayImages
 
-load_dotenv()
 ASIA_SG = ZoneInfo("Asia/Singapore")
 
 # --- Partial refresh configuration ---

@@ -1,15 +1,16 @@
 # displayBuses.py
-import os
-import sys
 import logging
 import math
-from functools import lru_cache
+import os
+import sys
 from datetime import datetime
+from functools import lru_cache
+from typing import List, Optional, Tuple, TypedDict
 from zoneinfo import ZoneInfo
-from typing import List, Tuple, Optional, TypedDict
+
 import requests
-from requests.adapters import HTTPAdapter, Retry
 from PIL import Image, ImageDraw, ImageFont
+from requests.adapters import HTTPAdapter, Retry
 
 # ---------- constants / configuration ----------
 ASIA_SG = ZoneInfo("Asia/Singapore")
@@ -40,7 +41,6 @@ L2_NUDGE_Y = int(os.getenv("L2_NUDGE_Y", "36"))
 L3_NUDGE_Y = int(os.getenv("L3_NUDGE_Y", "64"))
 ROW_ADVANCE = int(os.getenv("ROW_ADVANCE", "140"))
 TOP_Y = int(os.getenv("TOP_Y", "64"))
-API_URL = os.getenv("API_URL", "")
 
 
 # ---------- font helpers (cached) ----------
@@ -232,7 +232,12 @@ def get_bus_arrival(bus_stop_code: str) -> List[Tuple[str, List[int]]]:
         logging.error("Missing API_KEY")
         return []
 
-    url = f"{API_URL}/busarrival?BusStopCode={bus_stop_code}"
+    api_url = os.getenv("API_URL", "").rstrip("/")
+    if not api_url:
+        logging.error("Missing API_URL")
+        return []
+
+    url = f"{api_url}/busarrival?BusStopCode={bus_stop_code}"
     headers = {"x-api-key": api_key, "accept": "application/json"}
 
     try:
