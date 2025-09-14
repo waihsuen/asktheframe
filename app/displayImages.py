@@ -11,7 +11,7 @@ from PIL import Image
 FRAME_SUB_PATH = os.getenv("FRAME_SUB_PATH", "base")
 FRAME_PATTERN = os.getenv("FRAME_PATTERN", "frame_*.bmp")
 FRAME_ZPAD = int(os.getenv("FRAME_ZPAD", "2"))  # zero-pad width for {n}, e.g., 2 => frame01.bmp
-IMAGE_REFRESH_SECONDS = float(os.getenv("IMAGE_REFRESH_SECONDS", "15"))
+IMAGE_REFRESH_SECONDS = float(os.getenv("IMAGE_REFRESH_SECONDS", "5"))
 
 # Base dirs
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))

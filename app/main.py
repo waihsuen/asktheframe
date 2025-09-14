@@ -20,7 +20,7 @@ ASIA_SG = ZoneInfo("Asia/Singapore")
 
 # --- Partial refresh configuration ---
 PARTIAL_ENABLE = os.getenv("PARTIAL_ENABLE", "1") not in ("0", "false", "False")
-PARTIAL_FULL_EVERY_N = int(os.getenv("PARTIAL_FULL_EVERY_N", "20"))  # full refresh every N display() calls
+PARTIAL_FULL_EVERY_N = int(os.getenv("PARTIAL_FULL_EVERY_N", "10"))  # full refresh every N display() calls
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 LIB_DIR = os.path.join(BASE_DIR, "libraries")
